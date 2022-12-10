@@ -7,13 +7,6 @@ import java.util.Map;
 
 public class TaskQueue<T extends Task> {
 
-    public enum TaskState {
-        WAITING,
-        RUNNING,
-        PAUSED,
-        FINISHED,
-    }
-
     public static final long DEFAULT_MAX_TASK_COUNT = -1L;
     private Map<String, T> taskKeyedById;
     private long maxTaskCount;

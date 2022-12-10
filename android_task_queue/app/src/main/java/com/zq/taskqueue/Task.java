@@ -3,7 +3,7 @@ package com.zq.taskqueue;
 public abstract class Task {
 
     private Runnable finishCallback;
-    private TaskQueue.TaskState taskState;
+    private TaskState taskState;
     private String id;
     private boolean enabled;
 
@@ -20,11 +20,11 @@ public abstract class Task {
     }
 
     protected final void finish() {
-        this.taskState = TaskQueue.TaskState.FINISHED;
+        this.taskState = TaskState.FINISHED;
         finishCallback.run();
     }
 
-    public TaskQueue.TaskState getTaskState() {
+    public TaskState getTaskState() {
         return taskState;
     }
 
@@ -33,17 +33,17 @@ public abstract class Task {
     }
 
     void performOnWait() {
-        this.taskState = TaskQueue.TaskState.WAITING;
+        this.taskState = TaskState.WAITING;
         onWait();
     }
 
     void performOnStart() {
-        this.taskState = TaskQueue.TaskState.RUNNING;
+        this.taskState = TaskState.RUNNING;
         onStart();
     }
 
     void performOnPause() {
-        this.taskState = TaskQueue.TaskState.PAUSED;
+        this.taskState = TaskState.PAUSED;
         onPause();
     }
 

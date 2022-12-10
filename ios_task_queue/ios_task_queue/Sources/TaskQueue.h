@@ -1,6 +1,6 @@
 //
 //  TaskQueue.h
-//  TaskQueue <https://github.com/QiaokeZ/iOS_TaskQueue>
+//  TaskQueue <https://github.com/QiaokeZ/TaskQueue>
 //
 //  Created by zhouqiao on 2022/8/4.
 //  Copyright © 2022 zhouqiao. All rights reserved.
