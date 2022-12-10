@@ -30,8 +30,8 @@ public class DownloadTask extends Task {
     }
 
     @Override
-    protected void onCreate() {
-        super.onCreate();
+    protected void onWait() {
+        super.onWait();
         Log.i(TAG, "任务:" + getId() + " 已创建");
         download.state = 0;
         updateListener.onUpdate(download);
@@ -73,8 +73,8 @@ public class DownloadTask extends Task {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onDispose() {
+        super.onDispose();
         //释放资源
         Log.i(TAG, "任务:" + getId() + " 已销毁");
         if (timer != null) {

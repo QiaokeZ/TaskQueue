@@ -7,7 +7,7 @@ public abstract class Task {
     private String id;
     private boolean enabled;
 
-    protected void onCreate() {
+    protected void onWait() {
     }
 
     protected void onStart() {
@@ -16,7 +16,7 @@ public abstract class Task {
     protected void onPause() {
     }
 
-    protected void onDestroy() {
+    protected void onDispose() {
     }
 
     protected final void finish() {
@@ -32,9 +32,9 @@ public abstract class Task {
         return id;
     }
 
-    void performOnCreate() {
+    void performOnWait() {
         this.taskState = TaskQueue.TaskState.WAITING;
-        onCreate();
+        onWait();
     }
 
     void performOnStart() {
@@ -50,7 +50,7 @@ public abstract class Task {
     void set(String id, Runnable finishCallback) {
         this.id = id;
         this.finishCallback = finishCallback;
-        performOnCreate();
+        performOnWait();
     }
 
     void setEnabled(boolean enabled) {

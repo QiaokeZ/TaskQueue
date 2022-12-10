@@ -70,7 +70,7 @@ public class TaskQueue<T extends Task> {
     public synchronized void removeTask(String id) {
         Task task = get(id);
         if (task != null) {
-            task.onDestroy();
+            task.onDispose();
             taskKeyedById.remove(id);
             execute();
         }
@@ -98,7 +98,7 @@ public class TaskQueue<T extends Task> {
             while (iterator.hasNext()) {
                 Map.Entry<String, T> entry = iterator.next();
                 T task = entry.getValue();
-                task.onDestroy();
+                task.onDispose();
                 iterator.remove();
             }
         });
