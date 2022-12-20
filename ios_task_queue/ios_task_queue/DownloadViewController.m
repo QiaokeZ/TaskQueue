@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"下载管理";
+    self.title = @"TaskQueue";
     self.view.backgroundColor = UIColor.whiteColor;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
