@@ -8,7 +8,7 @@ import java.util.Map;
 public class TaskQueue<T extends Task> {
 
     public static final long DEFAULT_MAX_TASK_COUNT = -1L;
-    private Map<String, T> taskKeyedById;
+    private final Map<String, T> taskKeyedById;
     private long maxTaskCount;
     private boolean enabled;
 
@@ -114,19 +114,22 @@ public class TaskQueue<T extends Task> {
 
     private void execute() {
         if (!enabled) return;
+        long activeCount = activeCount();
         for (T task : getTasks()) {
             if (!task.isEnabled() && task.getTaskState() == TaskState.RUNNING) {
                 task.performOnPause();
             }
             if (maxTaskCount != DEFAULT_MAX_TASK_COUNT) {
-                if (maxTaskCount < activeCount() && task.getTaskState() == TaskState.RUNNING) {
+                if (maxTaskCount < activeCount && task.getTaskState() == TaskState.RUNNING) {
                     task.performOnPause();
                 }
             }
         }
+        boolean belowMaxTask = belowMaxTask();
         for (T task : getTasks()) {
-            if (belowMaxTask() && task.isEnabled() && task.getTaskState() != TaskState.RUNNING) {
+            if (belowMaxTask && task.isEnabled() && task.getTaskState() != TaskState.RUNNING) {
                 task.performOnStart();
+                belowMaxTask = belowMaxTask();
             }
         }
     }

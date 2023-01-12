@@ -137,19 +137,22 @@
 
 - (void)execute {
     if (!self.isEnabled) return;
+    NSInteger activeCount = [self activeCount];
     for (Task *task in self.tasks) {
         if (!task.isEnabled && task.state == TaskStateRunning) {
             [task _pause];
         }
         if (self.maxTaskCount != TaskQueueDefaultMaxTaskCount) {
-            if(self.maxTaskCount < self.activeCount && task.state == TaskStateRunning) {
+            if (self.maxTaskCount < activeCount && task.state == TaskStateRunning) {
                 [task _pause];
             }
         }
     }
+    BOOL belowMaxTask = [self belowMaxTask];
     for (Task *task in self.tasks) {
-        if (self.belowMaxTask && task.isEnabled && task.state != TaskStateRunning) {
+        if (belowMaxTask && task.isEnabled && task.state != TaskStateRunning) {
             [task _start];
+            belowMaxTask = [self belowMaxTask];
         }
     }
 }
